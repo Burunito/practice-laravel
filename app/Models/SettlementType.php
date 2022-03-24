@@ -12,10 +12,5 @@ class SettlementType extends Model
         'name'
     ];
     
-    protected $hidden = ['created_at', 'updated_at'];
-
-    public function getNameAttribute($value)
-    {
-        return strtoupper($value);
-    }
+    protected $hidden = ['created_at', 'updated_at', 'id'];
 }

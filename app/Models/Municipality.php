@@ -12,10 +12,14 @@ class Municipality extends Model
         'name'
     ];
 
-    protected $hidden = ['created_at', 'updated_at'];
-
+    protected $hidden = ['created_at', 'updated_at', 'id'];
+    protected $appends = ['key'];
     public function getNameAttribute($value)
     {
         return strtoupper($value);
+    }
+    public function getKeyAttribute()
+    {
+        return $this->id;
     }
 }

@@ -12,7 +12,7 @@ class Locality extends Model
         'name'
     ];
 
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at', 'id'];
 
     public function getNameAttribute($value)
     {

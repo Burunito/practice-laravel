@@ -64,7 +64,7 @@ class ApiController extends Controller
     }
 
     function getData($zip_code){
-        $postalCodeInfo = PostalCode::with('settlements.settlement_types','federal_entity', 'municipality')
+        $postalCodeInfo = PostalCode::with('settlements.settlement_type','federal_entity', 'municipality')
                                 ->where('zip_code', $zip_code)
                                 ->first();
         return response()->json($postalCodeInfo);
