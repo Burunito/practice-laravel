@@ -54,11 +54,19 @@ class ApiController extends Controller
                         [
                             'name' => $zip_code[1],
                             'postal_code_id' => $codigo->id,
+                            'zone_type_id' => $zona->id,
                             'settlement_type_id' => $tipo_colonia->id,
                         ]
                     );
                 $colonia->save();
             }
         }
+    }
+
+    function getData($zip_code){
+        $postalCodeInfo = PostalCode::with('settlements.settlement_types','federal_entity', 'municipality')
+                                ->where('zip_code', $zip_code)
+                                ->first();
+        return response()->json($postalCodeInfo);
     }
 }

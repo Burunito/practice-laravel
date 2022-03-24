@@ -15,10 +15,8 @@ class FederalEntity extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    protected function name(): Attribute
+    public function getNameAttribute($value)
     {
-        return Attribute::make(
-            get: fn ($value) => strtoupper($value),
-        );
+        return strtoupper($value);
     }
 }

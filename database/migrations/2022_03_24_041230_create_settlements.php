@@ -19,8 +19,10 @@ class CreateSettlements extends Migration
             $table->string('name');
             $table->unsignedBigInteger('postal_code_id');
             $table->unsignedBigInteger('settlement_type_id');
+            $table->unsignedBigInteger('zone_type_id');
             $table->foreign('postal_code_id')->references('id')->on('postal_codes');
             $table->foreign('settlement_type_id')->references('id')->on('settlement_types');
+            $table->foreign('zone_type_id')->references('id')->on('zone_types');
         });
     }
 
