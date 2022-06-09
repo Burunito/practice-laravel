@@ -16,8 +16,8 @@ class CreateSettlements extends Migration
         Schema::create('settlements', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name');
             $table->integer('key');
+            $table->string('name');
             $table->unsignedBigInteger('postal_code_id');
             $table->unsignedBigInteger('settlement_type_id');
             $table->unsignedBigInteger('zone_type_id');

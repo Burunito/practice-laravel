@@ -10,8 +10,8 @@ class Settlement extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
         'key',
+        'name',
         'postal_code_id',
         'settlement_type_id',
         'zone_type_id',

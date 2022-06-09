@@ -65,8 +65,8 @@ class ApiController extends Controller
             $codigo->save();
             $colonia = new Settlement(
                     [
-                        'name' => $zip_code['asentamiento'],
                         'key' => +$zip_code['asentamiento_id'],
+                        'name' => $zip_code['asentamiento'],
                         'postal_code_id' => $codigo->id,
                         'zone_type_id' => $zona->id,
                         'settlement_type_id' => $tipo_colonia->id,
