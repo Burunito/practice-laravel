@@ -19,10 +19,9 @@ class ApiController extends Controller
     private $accents = array('Á'=>'A', 'É'=>'E', 'Í'=>'I', 'Ó'=>'O', 'Ú'=>'U',
                             'á'=>'a', 'é'=>'e', 'í'=>'i', 'ó'=>'o', 'ú'=>'u');
      /**
-     * Search zip code
+     *  Import excel files
      *
-     * @param  string  $zip_code
-     * @return Array
+     * @return void
      */
     public function importData()
     {
@@ -79,8 +78,8 @@ class ApiController extends Controller
     /**
      * Search zip code
      *
-     * @param  string  $zip_code
-     * @return Array
+     * @param  array  $array
+     * @return Collection
      */
     public function reMapData($array)
     {
@@ -108,7 +107,7 @@ class ApiController extends Controller
      * Search zip code
      *
      * @param  string  $zip_code
-     * @return Array
+     * @return reponse
      */
     public function getData($zip_code)
     {
