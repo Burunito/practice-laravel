@@ -28,10 +28,9 @@ class ApiController extends Controller
     {
         ini_set("memory_limit", "-1");
         set_time_limit(0);
-        $data = Excel::toCollection(new ZipCodeImport,'./CPdescarga.xls');
+        $data = Excel::toCollection(new ZipCodeImport, public_path('CPdescarga.xls'));
         $collection = $this->reMapData($data);
-        $sorted = $collection->sortBy('codigo');
-        foreach ($sorted as $zip_code) {
+        foreach ($collection as $zip_code) {
             if (!$estado = FederalEntity::where('name', $zip_code['estado'])->first()) {
                 $estado = new FederalEntity(['name' => $zip_code['estado']]);
             }
@@ -64,10 +63,10 @@ class ApiController extends Controller
                 );
             }
             $codigo->save();
-            
             $colonia = new Settlement(
                     [
                         'name' => $zip_code['asentamiento'],
+                        'key' => +$zip_code['asentamiento_id'],
                         'postal_code_id' => $codigo->id,
                         'zone_type_id' => $zona->id,
                         'settlement_type_id' => $tipo_colonia->id,
@@ -88,19 +87,18 @@ class ApiController extends Controller
         $collection = [];
         $array->shift();
         foreach ($array as $state) {
+            $state->shift();
             foreach ($state as $code) {
-                if (count($code) == 15 && $code[0] != 'd_codigo') {
-                    $collection[] = [
-                        "codigo" => $code[0],
-                        "asentamiento" => strtr($code[1], $this->accents),
-                        "key" => $code[12],
-                        "tipo_asentamiento" => $code[2],
-                        "municipio" => strtr($code[3], $this->accents),
-                        "estado" => strtr($code[4], $this->accents),
-                        "ciudad" => strtr($code[5], $this->accents),
-                        "zona" => $code[13]
-                    ];
-                }
+                $collection[] = [
+                    "codigo" => $code[0],
+                    "asentamiento" => strtr($code[1], $this->accents),
+                    "asentamiento_id" => $code[12],
+                    "tipo_asentamiento" => $code[2],
+                    "municipio" => strtr($code[3], $this->accents),
+                    "estado" => strtr($code[4], $this->accents),
+                    "ciudad" => strtr($code[5], $this->accents),
+                    "zona" => $code[13]
+                ];
             }
         }
         return collect($collection);
