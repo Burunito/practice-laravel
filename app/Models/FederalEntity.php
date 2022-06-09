@@ -15,7 +15,8 @@ class FederalEntity extends Model
 
     protected $hidden = ['created_at', 'updated_at', 'id'];
 
-    protected $appends = ['key'];
+    protected $appends = ['key', 'code'];
+    
     public function getNameAttribute($value)
     {
         return strtoupper($value);
@@ -24,5 +25,10 @@ class FederalEntity extends Model
     public function getKeyAttribute()
     {
         return $this->id;
+    }
+
+    public function getcodeAttribute()
+    {
+        return null;
     }
 }
