@@ -17,7 +17,7 @@ class PostalCode extends Model
     ];
 
     protected $appends = ['locality'];
-    protected $hidden = ['created_at', 'updated_at', 'locality_id', 'federal_entity_id','municipality_id', 'id'];
+    protected $hidden = ['created_at', 'updated_at', 'locality_id', 'federal_entity_id','municipality_id', 'id', 'city_id'];
     public function locality(){
         return $this->belongsTo('App\Models\Locality', 'locality_id');
     }

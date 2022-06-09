@@ -17,6 +17,7 @@ class CreateSettlements extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
+            $table->integer('key');
             $table->unsignedBigInteger('postal_code_id');
             $table->unsignedBigInteger('settlement_type_id');
             $table->unsignedBigInteger('zone_type_id');

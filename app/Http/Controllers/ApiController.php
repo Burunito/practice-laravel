@@ -16,7 +16,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class ApiController extends Controller
 {   
 
-    private $unwanted_array = array('Á'=>'A', 'É'=>'E', 'Í'=>'I', 'Ó'=>'O', 'Ú'=>'U',
+    private $accents = array('Á'=>'A', 'É'=>'E', 'Í'=>'I', 'Ó'=>'O', 'Ú'=>'U',
                             'á'=>'a', 'é'=>'e', 'í'=>'i', 'ó'=>'o', 'ú'=>'u');
      /**
      * Search zip code
@@ -92,11 +92,12 @@ class ApiController extends Controller
                 if (count($code) == 15 && $code[0] != 'd_codigo') {
                     $collection[] = [
                         "codigo" => $code[0],
-                        "asentamiento" => strtr($code[1], $this->unwanted_array),
+                        "asentamiento" => strtr($code[1], $this->accents),
+                        "key" => $code[12],
                         "tipo_asentamiento" => $code[2],
-                        "municipio" => strtr($code[3], $this->unwanted_array),
-                        "estado" => strtr($code[4], $this->unwanted_array),
-                        "ciudad" => strtr($code[5], $this->unwanted_array),
+                        "municipio" => strtr($code[3], $this->accents),
+                        "estado" => strtr($code[4], $this->accents),
+                        "ciudad" => strtr($code[5], $this->accents),
                         "zona" => $code[13]
                     ];
                 }
@@ -113,9 +114,13 @@ class ApiController extends Controller
      */
     public function getData($zip_code)
     {
+        if (!$zip_code) {
+            return response()->json(['error' => 'Zip code cant be found'], 404);
+        }
         $postalCodeInfo = PostalCode::with('settlements.settlement_type','federal_entity', 'municipality')
                                 ->where('zip_code', $zip_code)
                                 ->first();
-        return response()->json($postalCodeInfo);
+
+        return response()->json($postalCodeInfo, 200);
     }
 }

@@ -15,7 +15,7 @@ class Settlement extends Model
         'settlement_type_id',
         'zone_type_id',
     ];
-    protected $appends = ['zone_type', 'key'];
+    protected $appends = ['zone_type'];
     protected $hidden = ['created_at', 'updated_at', 'postal_code_id', 'settlement_type_id', 'zone_type_id', 'id'];
     public function settlement_type(){
         return $this->belongsTo('App\Models\SettlementType', 'settlement_type_id');
@@ -36,9 +36,5 @@ class Settlement extends Model
     public function getZoneTypeAttribute($value)
     {
         return ZoneType::find($this->zone_type_id)->name;
-    }
-    public function getKeyAttribute()
-    {
-        return $this->id;
     }
 }
